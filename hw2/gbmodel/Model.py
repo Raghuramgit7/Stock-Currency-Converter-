@@ -20,4 +20,15 @@ class Model():
         """
         pass
 
+    def delete(self, id):
+        """
+        Deletes an entry from the database based on 'id'.
+        :param id: Integer 
+        :return: None
+        :raises:
+            - ConnectionError: If there is an error connecting to the database.
+            - DeletionError: If there is an error deleting the entry from the database.
+        """
+        pass
+
    

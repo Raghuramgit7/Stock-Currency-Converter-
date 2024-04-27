@@ -14,7 +14,11 @@
                 <br />Rating: {{ entry.rating }}<br />
                 <br />
 
-                
+                <!-- Use a hidden input field to store the entry name -->
+                <form method="post" action="{{ url_for('delete') }}">
+                    <input type="hidden" name="id" value="{{ entry.id }}" />
+                    <button type="submit">Delete record</button>
+                </form>
             </p>
         </div>
     {% endfor %}

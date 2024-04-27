@@ -6,6 +6,7 @@ from flask.views import MethodView
 from index import Index
 from sign import Sign
 from entries import Entries
+from delete import Delete
 
 app = flask.Flask(__name__)       # our Flask app
 
@@ -19,6 +20,10 @@ app.add_url_rule('/sign',
 app.add_url_rule('/entries',
                  view_func=Entries.as_view('entries'),
                  methods=['GET', 'POST'])
+
+app.add_url_rule('/delete',
+                 view_func=Delete.as_view('delete'),
+                 methods=['POST'])
 
 
 if __name__ == '__main__':

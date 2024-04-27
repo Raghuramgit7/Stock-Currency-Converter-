@@ -46,7 +46,14 @@ class model(Model):
         cursor.close()
         return True
     
-    
+    def delete(self, id):
+        # Delete a specific record from the 'quotes' table based on 'rowid'
+        connection = sqlite3.connect(DB_FILE)
+        cursor = connection.cursor()
+        cursor.execute("DELETE FROM guestbook1 WHERE id=?", (id,))
+        connection.commit()
+        cursor.close()
+        return True
 
     
         
