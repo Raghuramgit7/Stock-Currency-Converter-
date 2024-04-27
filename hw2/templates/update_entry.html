@@ -1,0 +1,25 @@
+{% extends "layout.html" %} {% block content %}
+<h2>Update Entry</h2>
+<form action="{{ url_for('update') }}" method="post">
+  <input type="hidden" value="{{entry.id}}" type="text" name="id" />
+  <p class="heading">Quote: <input value="{{entry.quote}}" type="text" name="quote" /></p>
+  <p class="heading">
+    Person the <br />quote is <br />attributed to:<input
+      type="text"
+      name="name"
+      value="{{entry.name}}"
+    />
+  </p>
+  <p class="heading">
+    Date of the Quote: <input value="{{entry.dateofquote}}" type="date" name="dateofquote" />
+  </p>
+  <p class="heading">
+    Source type for<br />the quote: <input value="{{entry.sourcetype}}" type="text" name="sourcetype" />
+  </p>
+  <p class="heading">
+    Source of <br />the quote: <input value="{{entry.sourcequote}}" type="text" name="sourcequote" />
+  </p>
+  <p class="heading">Quote Rating: <input value="{{entry.rating}}" type="number" name="rating" /></p>
+  <p><input type="submit" value="Update entry" /></p>
+</form>
+{% endblock %}

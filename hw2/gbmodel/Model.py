@@ -31,4 +31,15 @@ class Model():
         """
         pass
 
+    def update(self, id):
+        """
+        update an entry from the database based on 'id'.
+        :id
+        :return: None
+        :raises:
+            - ConnectionError: If there is an error connecting to the database.
+            - updation errorError: If there is an error updating the entry from the database.
+        """
+        pass
+
    

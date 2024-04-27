@@ -4,9 +4,13 @@ A simple guestbook flask app.
 import flask
 from flask.views import MethodView
 from index import Index
+from get import Get
 from sign import Sign
 from entries import Entries
+from update import Update
+
 from delete import Delete
+ 
 
 app = flask.Flask(__name__)       # our Flask app
 
@@ -19,6 +23,13 @@ app.add_url_rule('/sign',
                  methods=['GET', 'POST'])
 app.add_url_rule('/entries',
                  view_func=Entries.as_view('entries'),
+                 methods=['GET', 'POST'])
+
+app.add_url_rule('/get',
+                 view_func=Get.as_view('get'),
+                 methods=['POST'])
+app.add_url_rule('/update',
+                 view_func=Update.as_view('update'),
                  methods=['GET', 'POST'])
 
 app.add_url_rule('/delete',

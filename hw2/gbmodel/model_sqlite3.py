@@ -54,6 +54,46 @@ class model(Model):
         connection.commit()
         cursor.close()
         return True
+    
+    def update(self, updated_entry):
+        # Update a specific record in the 'quotes' table based on 'id'
+        connection = sqlite3.connect(DB_FILE)
+        cursor = connection.cursor()
+        
+        id_value = updated_entry.get('id')
+        if id_value is None:
+            # If 'id' is not provided in 'updated_entry', return False indicating failure
+            return False
+        
+        # Build  SQL query to update the record
+        params = {'id': id_value, 'quote': updated_entry.get('quote'), 'name': updated_entry.get('name'), 'dateofquote': updated_entry.get('dateofquote'), 'sourcetype': updated_entry.get('sourcetype'), 'sourcequote': updated_entry.get('sourcequote'), 'rating': updated_entry.get('rating')}
+
+        
+        # Execute the update query with the updated_entry dictionary
+        
+        cursor.execute(
+            "UPDATE guestbook1 SET quote = :quote, name = :name, dateofquote = :dateofquote, sourcetype = :sourcetype, sourcequote = :sourcequote, rating = :rating WHERE id=:id",
+            params,
+        )
+        
+        connection.commit()
+        cursor.close()
+        
+        return True
+    
+    def get(self, id):
+        """
+        Gets a specific row from the database based on the provided id.
+        Returns the row if found, otherwise returns None.
+        """
+        connection = sqlite3.connect(DB_FILE)
+        cursor = connection.cursor()
+        cursor.execute("SELECT * FROM guestbook1 WHERE id=?", (id,))
+        row = cursor.fetchone()  # Fetch the first row
+        connection.close()  # Close connection after fetching
+
+        return row
+    
 
     
         

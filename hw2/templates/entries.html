@@ -19,6 +19,12 @@
                     <input type="hidden" name="id" value="{{ entry.id }}" />
                     <button type="submit">Delete record</button>
                 </form>
+
+                <!-- Each update button has its own form -->
+                <form method="post" action="{{ url_for('get') }}">
+                    <input type="hidden" name="id" value="{{ entry.id }}" />
+                    <button type="submit">Update record</button>
+                </form>
             </p>
         </div>
     {% endfor %}
