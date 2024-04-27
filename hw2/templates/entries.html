@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h2>Entries</h2>
+    {% for entry in entries %}
+        <div class="entry">
+            <p>
+                <!-- display entry details -->
+                <!-- <br />Id: {{ entry.id }}<br /> -->
+                <br />Quote: {{ entry.quote }}<br />
+                <br />Name: {{ entry.name }}<br />
+                <br />Date of quote: {{ entry.dateofquote }}<br />
+                <br />Source type: {{ entry.sourcetype }}<br />
+                <br />Source of the quote: {{ entry.sourcequote }}<br />
+                <br />Rating: {{ entry.rating }}<br />
+                <br />
+
+                
+            </p>
+        </div>
+    {% endfor %}
+{% endblock %}
