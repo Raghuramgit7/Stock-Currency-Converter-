@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h2>Entries</h2>
+    {% for entry in entries %}
+        <div class="entry">
+            <p>
+                <!-- display entry details -->
+                <!-- <br />Id: {{ entry.id }}<br /> -->
+                <br />Quote: {{ entry.quote }}<br />
+                <br />Name: {{ entry.name }}<br />
+                <br />Date of quote: {{ entry.dateofquote }}<br />
+                <br />Source type: {{ entry.sourcetype }}<br />
+                <br />Source of the quote: {{ entry.sourcequote }}<br />
+                <br />Rating: {{ entry.rating }}<br />
+                <br />
+
+                <!-- Use a hidden input field to store the entry name -->
+                <form method="post" action="{{ url_for('delete') }}">
+                    <input type="hidden" name="id" value="{{ entry.id }}" />
+                    <button type="submit">Delete record</button>
+                </form>
+
+                <!-- Each update button has its own form -->
+                <form method="post" action="{{ url_for('get') }}">
+                    <input type="hidden" name="id" value="{{ entry.id }}" />
+                    <button type="submit">Update record</button>
+                </form>
+            </p>
+        </div>
+    {% endfor %}
+{% endblock %}
