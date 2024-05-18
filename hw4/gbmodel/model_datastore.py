@@ -14,7 +14,7 @@ def from_datastore(entity):
         return None
     if isinstance(entity, list):
         entity = entity.pop()
-    return [entity['quote'], entity['name'], entity['dateofquote'], entity['sourcetype'], entity['sourcequote'], entity['rating']]
+    return [entity['id'],entity['quote'], entity['name'], entity['dateofquote'], entity['sourcetype'], entity['sourcequote'], entity['rating']]
 
 
 class model(Model):
