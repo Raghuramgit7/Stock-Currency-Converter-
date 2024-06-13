@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Stock Metrics</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        body {
+            padding-top: 50px;
+        }
+        .container {
+            max-width: 800px;
+        }
+        #metrics, #earnings, #technical {
+            margin-top: 20px;
+        }
+        #convert-link {
+            display: none; /* Hide the link initially */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Advanced Stock Metrics</h1>
+        <form id="stock-form">
+            <div class="form-group">
+                <label for="stock-symbol">Enter Stock Symbol:</label>
+                <input type="text" class="form-control" id="stock-symbol" name="stock-symbol" placeholder="e.g., AAPL, MSFT" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Get Stock Metrics</button>
+        </form>
+        <div id="result" class="mt-4"></div>
+        <div id="metrics" class="mt-4"></div>
+        <!-- Conversion Link -->
+        <div class="mt-4">
+            <a href="#" id="convert-link" class="btn btn-secondary">Go to Currency Conversion</a>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#stock-form').on('submit', function(event) {
+                event.preventDefault();
+
+                var stockSymbol = $('#stock-symbol').val().trim().toUpperCase();
+
+                // Fetch and display stock metrics
+                $.get(`/api/stock/metrics?symbol=${stockSymbol}`, function(data) {
+                    if (data.error) {
+                        $('#result').html('<div class="alert alert-danger">' + data.error + '</div>');
+                        $('#convert-link').hide(); // Hide the link if there's an error
+                    } else {
+                        let metricsHtml = '<h2>Stock Metrics</h2><table class="table">';
+                        metricsHtml += '<tr><td>Symbol</td><td>' + data.symbol + '</td></tr>';
+                        metricsHtml += '<tr><td>Name</td><td>' + data.name + '</td></tr>';
+                        metricsHtml += '<tr><td>Market Capitalization</td><td>' + data.market_cap + '</td></tr>';
+                        metricsHtml += '<tr><td>Shares Outstanding</td><td>' + data.share_outstanding + '</td></tr>';
+                        metricsHtml += '<tr><td>Country</td><td>' + data.country + '</td></tr>';
+                        metricsHtml += '<tr><td>Currency</td><td>' + data.currency + '</td></tr>';
+                        metricsHtml += '<tr><td>Exchange</td><td>' + data.exchange + '</td></tr>';
+                        metricsHtml += '<tr><td>Industry</td><td>' + data.industry + '</td></tr>';
+                        metricsHtml += '<tr><td>IPO Date</td><td>' + data.ipo + '</td></tr>';
+                        metricsHtml += '<tr><td>Logo</td><td><img src="' + data.logo + '" alt="Company Logo" width="50"></td></tr>';
+                        metricsHtml += '<tr><td>Phone</td><td>' + data.phone + '</td></tr>';
+                        metricsHtml += '<tr><td>Website</td><td><a href="' + data.weburl + '" target="_blank">' + data.weburl + '</a></td></tr>';
+                        metricsHtml += '<tr><td>Current Price</td><td>' + data.current_price + '</td></tr>';
+                        metricsHtml += '<tr><td>High Price</td><td>' + data.high_price + '</td></tr>';
+                        metricsHtml += '<tr><td>Low Price</td><td>' + data.low_price + '</td></tr>';
+                        metricsHtml += '<tr><td>Open Price</td><td>' + data.open_price + '</td></tr>';
+                        metricsHtml += '<tr><td>Previous Close Price</td><td>' + data.previous_close_price + '</td></tr>';
+                        metricsHtml += '</table>';
+                        $('#metrics').html(metricsHtml);
+
+                        // Update and show the conversion link
+                        $('#convert-link').attr('href', `/convert_price?stock-symbol=${stockSymbol}`);
+                        $('#convert-link').show();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
