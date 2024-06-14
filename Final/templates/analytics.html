@@ -13,7 +13,6 @@
         .container {
             max-width: 800px;
         }
-       
     </style>
 </head>
 <body>
@@ -27,8 +26,6 @@
     <script>
         $(document).ready(function() {
             var stockSymbol = "{{ stock_symbol }}";
-
-            
 
             // Fetch and display key metrics
             $.get(`/api/stock/key-metrics?symbol=${stockSymbol}`, function(data) {
@@ -44,6 +41,8 @@
                     metricsHtml += '</table>';
                     $('#key-metrics').html(metricsHtml);
                 }
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                $('#key-metrics').html('<div class="alert alert-danger">Failed to fetch key metrics: ' + errorThrown + '</div>');
             });
         });
     </script>
