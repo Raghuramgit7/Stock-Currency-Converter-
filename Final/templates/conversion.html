@@ -69,7 +69,9 @@
                             'Latest Price (USD): $' + data.latest_price_usd + '<br>' +
                             'Converted Price (' + data.target_currency + '): ' + data.converted_price.toFixed(2) + ' ' + data.target_currency + '<br>');
 
-                        
+                        // Update and show the analytics link
+                        $('#analytics-link').attr('href', `/analytics?symbol=${data.stock_symbol}`);
+                        $('#analytics-link').show();
                     }
                 });
             });

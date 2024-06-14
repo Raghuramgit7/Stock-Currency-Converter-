@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        body {
+            padding-top: 50px;
+        }
+        .container {
+            max-width: 800px;
+        }
+       
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Analytics Dashboard for {{ stock_symbol }}</h1>
+        <div id="key-metrics" class="mt-4"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var stockSymbol = "{{ stock_symbol }}";
+
+            
+
+            // Fetch and display key metrics
+            $.get(`/api/stock/key-metrics?symbol=${stockSymbol}`, function(data) {
+                if (data.error) {
+                    $('#key-metrics').html('<div class="alert alert-danger">' + data.error + '</div>');
+                } else {
+                    let metricsHtml = '<h2>Key Metrics</h2><table class="table">';
+                    metricsHtml += '<tr><td>PE Ratio (TTM)</td><td>' + data.peBasicExclExtraTTM + '</td></tr>';
+                    metricsHtml += '<tr><td>EPS (TTM)</td><td>' + data.epsExclExtraItemsTTM + '</td></tr>';
+                    metricsHtml += '<tr><td>Revenue Growth (YOY)</td><td>' + data.revenueGrowthTTMYoy + '</td></tr>';
+                    metricsHtml += '<tr><td>Gross Margin (TTM)</td><td>' + data.grossMarginTTM + '</td></tr>';
+                    metricsHtml += '<tr><td>Net Profit Margin (TTM)</td><td>' + data.netProfitMarginTTM + '</td></tr>';
+                    metricsHtml += '</table>';
+                    $('#key-metrics').html(metricsHtml);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
