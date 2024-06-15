@@ -9,7 +9,7 @@ load_dotenv()
 analytics_bp = Blueprint('analytics', __name__, template_folder='templates')
 
 FINNHUB_API_KEY = os.getenv('FINNHUB_API_KEY')
-PROJECT_ID = os.getenv('PROJECT_ID')  # Ensure this is set in your .env file
+PROJECT_ID = os.getenv('cloud-nataraja-raghuram')  # Ensure this is set in your .env file
 
 # Datastore client
 datastore_client = datastore.Client(project=PROJECT_ID)
